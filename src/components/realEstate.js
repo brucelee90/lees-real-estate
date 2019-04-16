@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import Header from './components/Header'
-import Filter from './components/Filter'
-import Listings from './components/Listings'
-import './App.css';
-import listingsData from './data/listingsData'
+import React, { Component} from 'react'
+import ReactDOM from 'react-dom'
+import Header from './Header.js'
+import Filter from './Filter.js'
+import Listings from './Listings.js'
+import BoxView from './BoxView.js'
+import listingsData from './data/listingsData.js'
 
 class App extends Component {
-
   constructor () {
     super()
     this.state = {
@@ -69,57 +69,57 @@ class App extends Component {
       return item.price >= this.state.min_price && item.price <= this.state.max_price && item.floorSpace >= this.state.min_floor_space && item.floorSpace <= this.state.max_floor_space && item.rooms >= this.state.bedrooms
     })   
 
-    if (this.state.city !== "All") {
+    if (this.state.city != "All") {
       newData = newData.filter((item)=> {
-        return item.city === this.state.city
+        return item.city == this.state.city
       })
     }
 
-    if (this.state.homeType !== "All") {
+    if (this.state.homeType != "All") {
       newData = newData.filter((item)=> {
-        return item.homeType === this.state.homeType
+        return item.homeType == this.state.homeType
       })
     }
 
     // Ergebnisse nach Extras filtern
-    if (this.state.elevator === true) {
+    if (this.state.elevator == true) {
       newData = newData.filter((item)=>{
-        return item.extras.includes('elevator') === true
+        return item.extras.includes('elevator') == true
       })      
     }
 
-    if (this.state.swimming_pool === true) {
+    if (this.state.swimming_pool == true) {
       newData = newData.filter((item)=>{
-        return item.extras.includes('swimming-pool') === true
+        return item.extras.includes('swimming-pool') == true
       })      
     }
 
-    if (this.state.wintergarten === true) {
+    if (this.state.wintergarten == true) {
       newData = newData.filter((item)=>{
-        return item.extras.includes('wintergarten') === true
+        return item.extras.includes('wintergarten') == true
       })      
     }
 
-    if (this.state.garten === true) {
+    if (this.state.garten == true) {
       newData = newData.filter((item)=>{
-        return item.extras.includes('garten') === true
+        return item.extras.includes('garten') == true
       })      
     }
 
     // Liste auf- bzw. absteigend sortieren
-    if (this.state.sortby === 'price-dsc') {
+    if (this.state.sortby == 'price-dsc') {
       newData = newData.sort((a, b) => {
         return a.price - b.price
       })
     }
 
-    if (this.state.sortby === 'price-asc') {
+    if (this.state.sortby == 'price-asc') {
       newData = newData.sort((a, b) => {
         return b.price - a.price
       })
     }
 
-    if (this.state.search !== '') {
+    if (this.state.search != '') {
       newData = newData.filter((item) => {
         var city = item.city.toLowerCase()
         var searchText = this.state.search.toLowerCase()
@@ -127,8 +127,6 @@ class App extends Component {
 
         if (n != null) {
           return true
-        }else{
-          return false
         }
       })
     }
@@ -174,15 +172,20 @@ class App extends Component {
 
 
 
-  render() {
+  render () {
     return (
-      <div className="App">
-        <Header/>
-        <Filter change={this.change} globalState={this.state} populateAction={this.populateForms} />
-        <Listings listingsData={this.state.filteredData} change={this.change} globalState={this.state} changeView={this.changeView}/>
+      
+      <div>
+        <Header />
+        <section id="content-area">
+            <Filter change={this.change} globalState={this.state} populateAction={this.populateForms} />
+            <Listings listingsData={this.state.filteredData} change={this.change} globalState={this.state} changeView={this.changeView}/>
+        </section>
       </div>
-    );
+    )
   }
 }
 
-export default App;
+const app = document.getElementById('app')
+
+ReactDOM.render(<App />, app)
