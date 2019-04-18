@@ -18,3 +18,10 @@ export const colors = {
     darkGrey: '#828d9d',
     lightGrey: '#dadde2',
     }
+
+export const box = `
+box-shadow: 0 1px 3px rgba(34,25,25,.4);
+-moz-box-shadow: 0 1px 3px rgba(34,25,25,.4);
+-webkit-box-shadow: 0 1px 3px rgba(34,25,25,.4);
+border-radius: 3px;
+`

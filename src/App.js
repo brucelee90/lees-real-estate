@@ -4,6 +4,7 @@ import Filter from './components/Filter'
 import Listings from './components/Listings'
 import './App.css';
 import listingsData from './data/listingsData'
+import styled from 'styled-components'
 
 class App extends Component {
 
@@ -178,11 +179,18 @@ class App extends Component {
     return (
       <div className="App">
         <Header/>
-        <Filter change={this.change} globalState={this.state} populateAction={this.populateForms} />
-        <Listings listingsData={this.state.filteredData} change={this.change} globalState={this.state} changeView={this.changeView}/>
+        <ContentWrapper>
+          <Filter change={this.change} globalState={this.state} populateAction={this.populateForms} />
+          <Listings listingsData={this.state.filteredData} change={this.change} globalState={this.state} changeView={this.changeView}/>
+        </ContentWrapper>
       </div>
     );
   }
 }
 
 export default App;
+
+const ContentWrapper = styled.div`
+display: grid;
+grid-template-columns: 1fr 3fr;
+`
